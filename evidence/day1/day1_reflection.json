@@ -1,0 +1,18 @@
+{
+  "problem_statement": "Model Comparison",
+  "candidate": "Logistic Regression",
+  "notes": {
+    "evidence": "Logistic Regression had the highest ROC_AUC (0.8213 vs 0.8138 LightGBM, 0.8124 XGBoost) and the fastest training (0.06s vs 1.07s, 2.67s), The ~0.01 ROC_AUC gaps on one split with ~158 positives are likely noise, so tree models showed no clear advantage.",
+    "limitation": "Single split with only ~158 positives, so the ~0.01 ROC_AUC differences may be noise; results may not generalize to other data or time periods.",
+    "next_test": "Run repeated stratified 5-fold CV; if a tree model beats Logistic Regression by more than the fold std, switch to it."
+  },
+  "exit_answers": [
+    "Under imbalance, ROC-AUC hides a lot of false positives due to the large number of negatives keeps the false positive rate low, but AP exposes it to clarify the performance of model on the rare positive class",
+    "The comparison set must stay separate from early stopping to keep the evaluation numbers realistic, because combining the two would make the comparison results optimistically biased."
+  ],
+  "checkpoint": {
+    "status": "READY_FOR_REVIEW",
+    "missing": [],
+    "automatic_grade": null
+  }
+}

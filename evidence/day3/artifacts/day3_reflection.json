@@ -1,0 +1,16 @@
+{
+  "source": "LIVE",
+  "responses": {
+    "threshold_reason": "The selected threshold t* = 0.6583 is defensible because it has the lowest loss (2,639 units) among rules that stay within the 12% ceiling in every period (10.44% pooled flags), whereas t = 0.5 has lower loss (2,403) but flags 19.94% and is infeasible. The trade-off is lower recall (0.4089 vs 0.5781) with higher precision (0.2985 vs 0.2209), but since t* was chosen on OOF development labels, it is not final-test evidence.",
+    "cost_capacity_tradeoff": "Enforcing the 12% per-period capacity raises observed loss from 2,403 units at t = 0.5 to 2,639 at t*, a cost of +236 units, while recall falls from 0.5781 to 0.4089 (FN rises from 162 to 227, each costing 10 units). In return, flags drop from 19.94% to 10.44% of requests, making t* feasible in every period whereas t = 0.5 is not.",
+    "regional_gap": "The FPR gap across regions is 0.648 percentage points (highest western 8.29%, lowest other 7.64%), but recall varies more (western 0.3462 vs other 0.4815) and each region has only 81 to 104 defaults, so this descriptive audit calls for review, not a fairness certification or separate thresholds.",
+    "limitations": "The threshold and its loss (2,639 units) were selected on the same OOF development labels, so they are optimistic development evidence rather than final-test performance, and OOF covers only the 5,039 eligible rows (4,961 warm-up rows have no prediction). The weighted raw scores are not calibrated probabilities, and the policy is simplified without review cost.",
+    "why_accuracy_misleads": "A 'flag nobody' rule reaches 0.9238 accuracy because defaults are only 7.62% of requests, yet it has zero recall with the highest loss (3,840 units). Likewise, accuracy ranks t* (0.8817) above t = 0.5 (0.8125) while loss ranks them the opposite way (2,639 vs 2,403), because accuracy counts all errors equally while a missed default costs 10 times a false flag.",
+    "why_oof": "We select the threshold on OOF predictions because each one comes from a model that never trained on that row, unlike optimistic training predictions, and the closed challenge data must stay untouched so it can serve as an independent final test."
+  },
+  "checkpoint": {
+    "status": "READY_FOR_REVIEW",
+    "missing": [],
+    "automatic_grade": null
+  }
+}

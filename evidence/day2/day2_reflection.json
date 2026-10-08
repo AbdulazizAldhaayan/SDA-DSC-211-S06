@@ -1,0 +1,14 @@
+{
+  "responses": {
+    "leak_example": "days_past_due_60; it only becomes known after the account has been 60 days overdue, which happens after the application and inside the 90-day default window",
+    "split_reason": "Time ordering is used because the model must predict future applications from past data; random splitting would let it train on later data and test on earlier data, giving unrealistically good results. Customers are separated so the model is tested on clients it has not seen, as in the real world, instead of recognize and repeat clients. The strict 90-day rule keeps only training applications whose labels are final before validation starts, because an application younger than 90 days may still default and its label could change.",
+    "observed_gap": "Observed AP gaps: leaky minus clean random = 0.6879, showing leakage massively inflates the result; clean random minus honest fixed = -0.0044, which is tiny, so mixing time and customers made no obvious difference here. These gaps do not prove universal superiority because the populations differ (10,000 vs 5,039 requests) and the three folds are related in time periods, not independent experiments.",
+    "imputer_reason": "The imputer learns its fill values from training rows only, so validation rows cannot influence preprocessing (preventing preprocessing leakage). The inner stopping set controls only the number of trees (chosen by log loss), excluding the outer validation rows.",
+    "limitations": "The search was limited to 8 trials and 120 seconds on a small reserved cohort, so better parameters may exist. OOF predictions cover only 50.39% of the data (later requests from 2023-07-01), and the three folds are related time periods, so the SD is descriptive, not a confidence interval."
+  },
+  "checkpoint": {
+    "status": "READY_FOR_REVIEW",
+    "missing": [],
+    "automatic_grade": null
+  }
+}

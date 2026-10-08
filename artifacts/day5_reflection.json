@@ -1,0 +1,19 @@
+{
+  "responses": {
+    "ensemble_reason": "The best single model is Logistic Regression (mean AP 0.3917, fold SD 0.0298), and no ensemble passed the gate: the weighted average changed AP by -0.0022, the equal average by -0.0200 and the stack by -0.0085, none exceeding the fold SD. The stack also worsened ECE by +0.0122 (limit 0.01) and Brier by +0.0028, so the decision is KEEP SINGLE (Logistic) and the extra complexity did not earn its place.",
+    "validation_limits": "Evidence comes from nested forward OOF over 2023Q1, 2023Q3 and 2024Q1 (2,155 OOF rows), with 90-day label maturity and customer separation, and the ensemble weights and stacker were learned on inner OOF only. It is development evidence from only three overlapping periods, not an independent final test, and the fold SD is descriptive, not a confidence interval.",
+    "calibration_limits": "A sigmoid was learned on the reserved July-September 2024 calibration period (836 rows, 78 positives), and the metrics are fit diagnostics on those same rows, not independent performance. On these rows the sigmoid did not improve the raw Logistic scores (Brier 0.0765 to 0.0781, ECE 0.0211 to 0.0349, log-loss 0.2665 to 0.2773), and no improvement is claimed on the unlabeled challenge.",
+    "capacity_fairness": "The 12% capacity was applied once to the full 2,500-request batch: 330 requests exceeded the transported threshold (0.1223) and 300 were flagged, with 30 removed by the capacity and equal-score blocks never split. Regional OOF flag rates among negatives range from 6.31% (eastern, 507 negatives) to 10.29% (western, 486 negatives), a gap of 3.98 percentage points, which is a descriptive diagnostic that needs review and not a fairness certification.",
+    "explanation_scope": "The Day 4 SHAP explanations belong to the Day 4 weighted LightGBM, while the final model is Logistic Regression, a different model family, so they do not transfer. Feature importance and explanations would have to be recomputed for the final model (for example from its coefficients) before any explanation is attributed to it.",
+    "intended_use": "This is a fictional teaching project on synthetic data, and decision=1 is a simulated review flag, not a refusal. decision=0 is not a safety guarantee or financing approval, and the model must not be used for real financing decisions.",
+    "monitoring_plan": "Monitor per batch the flag volume against the 12% capacity (300 per 2,500 requests), the score distribution and prevalence for drift, calibration (Brier and ECE on newly matured labels), and regional flag rates with their denominators. Retrain, recalibrate and re-select the threshold together if any of these shift.",
+    "executive_summary_ar": " KEEP SINGLE بالاحتفاظ بنموذج Logistic Regression لأن متوسط AP له 0.3917 وأعلى تجميع (الموزون) 0.3894 بانحراف 0.0298، فلم يجتز أي تجميع البوابة. العتبة المعايرة 0.1223 ترفع 300 إشارة من 2,500 طلب ضمن السعة، وفجوة معدل الإنذار الخاطئ بين المناطق 3.98 نقطة مئوية تحتاج مراجعة. البيانات اصطناعية والنتائج للتدريب فقط ولا تصلح لقرارات تمويل فعلية.",
+    "executive_summary_en": "KEEP SINGLE: Logistic Regression is retained with mean AP 0.3917 versus 0.3894 for the best ensemble (weighted) and a fold SD of 0.0298, so no ensemble passed the gate. The calibrated threshold of 0.1223 flags 300 of 2,500 requests within capacity, and a 3.98-point regional FPR gap needs review. The data are synthetic, so results are for training only and not for real financing decisions."
+  },
+  "checkpoint": {
+    "status": "READY_FOR_REVIEW",
+    "missing": [],
+    "automatic_grade": null,
+    "content_quality": "requires human review"
+  }
+}
